@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout :: head_html">
+<body style="background-color: #FFFFFF;">
+    <header th:replace="layout :: header_html">
+    </header>
+
+
+
+    <div class="main-upload">
+    <div class="row" >
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <section>
+                <form action="#" th:action="@{/upload}" method="post" th:object="${offer}" enctype="multipart/form-data" >
+                <fieldset>
+                    <legend>Publier une Offre</legend>
+                    <div class="form-group ">
+                        <label for="title">Titre du poste</label>
+                        <input class="form-control"  type="text" id="title" name="title" th:field="*{titre}"  placeholder="Title"  />
+                        <span th:if="${form.errors['title']}" class="erreur" th:text="${form.errors['title']}"></span>
+                        <span class="erreur" th:if="${form.errors['user']}" th:text="${form.errors['user']}"></span>
+                        <br />
+                    </div>
+
+                    <div class="form-group ">
+                        <label for="description">Description de l'offre</label>
+                        <textarea type="text"  class="form-control" th:field="*{description}" id="description" placeholder="Description" rows="3" name="description"  th:value="${offer.description}"> </textarea>
+                        <span class="erreur" th:if="${form.errors['description']}" th:text="${form.errors['description']}"></span>
+                        <br />
+                    </div>
+
+                    <div class="form-group ">
+                        <label for="city">Ville d'offre</label>
+                        <select id="city" class="form-control" name="city" th:field="*{city}">
+                        <span th:each="city, status : ${City}">
+                            <option th:value="${status.index}" th:text="${city}"></option>
+                        </span>
+                        </select>
+                        <span class="erreur" th:if="${form.errors['city']}" th:text="${form.errors['city']}"></span>
+                        <br />
+                    </div>
+
+                    <div class="form-group ">
+                        <label for="category">Secteur</label>
+                        <select id="category" class="form-control" name="category" th:field="*{category}">
+                        <span th:each="category, status : ${Category}">
+                            <option th:value="${status.index}" th:text="${category}"></option>
+                        </span>
+                        </select>
+                        <span class="erreur" th:if="${form.errors['category']}" th:text="${form.errors['category']}"></span>
+                        <br />
+                    </div>
+                    <div class="form-group ">
+                        <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )"> Ajouter le logo de l'entreprise</button>
+                        <input class="file-upload-input" type="file" id="file" style="display: none;" name="file" accept="image/*" />
+                        <span class="erreur" th:if="${form.errors['file']}" th:text="${form.errors['file']}"></span>
+                        <br />
+                    </div>
+                    <div>
+                        <input class="btn btn-block btn-orange" type="submit" value="Déposer" />
+                        <br />
+                    </div>
+                </fieldset>
+                </form>
+            </section>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+
+
+</div>
+    <footer th:replace="layout :: footer_html">
+    </footer>
+    <div th:replace="layout :: js_scripts_html">
+    </div>
+</body>
+</html>
